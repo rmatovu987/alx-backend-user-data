@@ -2,7 +2,7 @@
 """
 Basic Auth
 """
-from auth import Auth
+from .auth import Auth
 
 
 class BasicAuth(Auth):
