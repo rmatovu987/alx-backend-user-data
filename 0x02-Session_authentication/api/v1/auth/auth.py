@@ -2,6 +2,7 @@
 """
 Class to manager authentication
 """
+import os
 from typing import List, TypeVar
 
 from flask import request
@@ -56,3 +57,14 @@ class Auth:
         :return:
         """
         return None
+
+    def session_cookie(self, request=None):
+        """
+
+        :param request:
+        :return:
+        """
+        if request is None:
+            return None
+        session = os.getenv('SESSION_NAME')
+        return request.cookies.get(session)
