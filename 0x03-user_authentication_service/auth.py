@@ -3,6 +3,7 @@
 Auth class
 """
 import bcrypt
+from sqlalchemy.exc import NoResultFound
 
 from user import User
 
@@ -29,6 +30,8 @@ class Auth:
 
     def register_user(self, email: str, password: str) -> User:
         """Register a user"""
-        if self._db.find_user_by(email=email) is not None:
-            raise ValueError(f'User {email} already exists')
-        return self._db.add_user(email, str(_hash_password(password)))
+        try:
+            self._db.find_user_by(email=email)
+        except NoResultFound:
+            return self._db.add_user(email, str(_hash_password(password)))
+        raise ValueError(f"User {email} already exists")
