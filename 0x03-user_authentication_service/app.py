@@ -2,6 +2,8 @@
 """
 Flask app
 """
+from typing import Tuple
+
 from flask import (
     Flask,
     request,
@@ -27,17 +29,23 @@ def index() -> Response:
 
 
 @app.route("/users", methods=["POST"], strict_slashes=False)
-def register() -> Response:
+def register() -> Response | tuple[Response, int]:
     """
     Register a user
     """
     email = request.form.get('email')
     password = request.form.get('password')
     try:
-        user = AUTH.register_user(email=email, password=password)
+        new_user = AUTH.register_user(email, password)
+        if new_user is not None:
+            return jsonify({
+                "email": new_user.email,
+                "message": "user created"
+            })
     except ValueError:
-        return jsonify({"message": "email already registered"})
-    return jsonify({"email": f"{email}", "message": "user created"})
+        return jsonify({
+            "message": "email already registered"
+        }), 400
 
 
 if __name__ == "__main__":
