@@ -3,25 +3,24 @@
 Contains methods and attributes
 for authentication
 """
-from bcrypt import hashpw, gensalt, checkpw
-from db import DB
-from user import User
+import bcrypt
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 import uuid
 from typing import Union
 
+from db import DB
+from user import User
+
 
 def _hash_password(password: str) -> bytes:
     """
-    Encrypts password.
+    Hashes a password string and returns it in bytes form
     Args:
-        password: The password to be encrypted.
-    Returns:
-        bytes
+        password (str): password in string format
     """
     passwd = password.encode('utf-8')
-    return hashpw(passwd, gensalt())
+    return bcrypt.hashpw(passwd, bcrypt.gensalt())
 
 
 def _generate_uuid() -> str:
@@ -81,7 +80,7 @@ class Auth:
         try:
             existing_user = self._db.find_user_by(email=email)
             hashed_password = existing_user.hashed_password
-            return checkpw(password.encode(),
+            return bcrypt.checkpw(password.encode(),
                            hashed_password.encode('utf-8'))
         except (NoResultFound, InvalidRequestError):
             return False
