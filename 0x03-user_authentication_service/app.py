@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
 """
-Flask App
+Flask app
 """
-from flask import Flask, jsonify
+from flask import (
+    Flask,
+    request,
+    jsonify,
+    abort,
+    redirect,
+    url_for
+)
 
 from auth import Auth
 
@@ -17,7 +24,3 @@ def index() -> str:
     {"message": "Bienvenue"}
     """
     return jsonify({"message": "Bienvenue"})
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
