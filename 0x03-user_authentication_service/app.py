@@ -55,6 +55,7 @@ def login() -> str:
     """
     POST method, route /sessions
     Creates new user session, stores the session id as a cookie
+
     Return:
       - json payload
     """
