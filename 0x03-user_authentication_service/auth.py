@@ -19,8 +19,9 @@ def _hash_password(password: str) -> bytes:
     Args:
         password (str): password in string format
     """
-    passwd = password.encode('utf-8')
-    return bcrypt.hashpw(passwd, bcrypt.gensalt())
+    if password is not None:
+        passwd = password.encode('utf-8')
+        return bcrypt.hashpw(passwd, bcrypt.gensalt())
 
 
 def _generate_uuid() -> str:
