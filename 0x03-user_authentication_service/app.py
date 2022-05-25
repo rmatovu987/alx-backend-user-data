@@ -15,9 +15,7 @@ AUTH = Auth()
 @app.route('/', methods=['GET'], strict_slashes=False)
 def base() -> str:
     """
-    Base route
-    Returns:
-        str: json payload
+    Create a basic flask app
     """
     return jsonify({"message": "Bienvenue"})
 
