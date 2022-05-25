@@ -20,7 +20,7 @@ AUTH = Auth()
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)
-def index() -> Response:
+def index() -> str:
     """
     Return json response
     {"message": "Bienvenue"}
@@ -29,7 +29,7 @@ def index() -> Response:
 
 
 @app.route("/users", methods=["POST"], strict_slashes=False)
-def register() -> Response | tuple[Response, int]:
+def register() -> str:
     """
     Register a user
     """
