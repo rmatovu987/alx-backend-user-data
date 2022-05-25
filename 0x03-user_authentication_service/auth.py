@@ -13,7 +13,8 @@ from user import User
 def _hash_password(password: str) -> bytes:
     """returned bytes is a salted hash of the input password
     """
-    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+    if password and isinstance(password, str):
+        return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
 
 def _generate_uuid() -> str:
