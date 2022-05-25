@@ -108,7 +108,7 @@ class Auth:
             session_id: The session id.
         Returns:
             User: The user object
-            or None.
+            or None
         """
         if not session_id:
             return None

@@ -38,10 +38,10 @@ def new_user() -> Union[str, tuple]:
     password = request.form.get("password")
 
     try:
-        new_user = AUTH.register_user(email, password)
-        if new_user is not None:
+        new_userq = AUTH.register_user(email, password)
+        if new_userq is not None:
             return jsonify({
-                "email": new_user.email,
+                "email": new_userq.email,
                 "message": "user created"
             })
     except ValueError:
