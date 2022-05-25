@@ -4,7 +4,7 @@
 import bcrypt
 from uuid import uuid4
 from typing import Union
-from sqlalchemy.exc import NoResultFound
+from sqlalchemy.orm.exc import NoResultFound
 
 from db import DB
 from user import User
@@ -38,7 +38,7 @@ class Auth:
             self._db.find_user_by(email=email)
         except NoResultFound:
             return self._db.add_user(email, _hash_password(password))
-        raise ValueError("User {} already exists".format(email))
+        raise ValueError(f"User {email} already exists")
 
     def valid_login(self, email: str, password: str) -> bool:
         """Checks if a user's login details are valid.
