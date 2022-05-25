@@ -11,13 +11,13 @@ from user import User
 
 
 def _hash_password(password: str) -> bytes:
-    """Hashes a password.
+    """returned bytes is a salted hash of the input password
     """
     return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
 
 def _generate_uuid() -> str:
-    """Generates a UUID.
+    """return a string representation of a new UUID.
     """
     return str(uuid4())
 
