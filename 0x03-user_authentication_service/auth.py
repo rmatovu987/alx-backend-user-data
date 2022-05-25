@@ -36,7 +36,8 @@ class Auth:
             if no user with given email exists, return newly created user
             else raise ValueError
         """
-        if self._db.find_user_by(email=email) is not None:
-            raise ValueError(f"User {email} already exists")
-        else:
+        try:
+            self._db.find_user_by(email=email)
+        except NoResultFound:
             return self._db.add_user(email, _hash_password(password))
+        raise ValueError(f"User {email} already exists")
