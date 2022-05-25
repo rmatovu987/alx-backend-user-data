@@ -81,7 +81,7 @@ class Auth:
             existing_user = self._db.find_user_by(email=email)
             hashed_password = existing_user.hashed_password
             return bcrypt.checkpw(password.encode(),
-                           hashed_password.encode('utf-8'))
+                                  hashed_password.encode('utf-8'))
         except (NoResultFound, InvalidRequestError):
             return False
 
